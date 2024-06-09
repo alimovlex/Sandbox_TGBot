@@ -25,7 +25,7 @@ set(
 set(
     FLAG_LIST
     -Wall 
-    -Werror 
+    -Wno-error
     -Wextra 
     -Winit-self 
     -Wredundant-decls

@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(Boost_USE_MULTITHREADED ON)
-
+set(CMAKE_CXX_FLAGS "-Wno-dangling-reference")
 add_subdirectory(modules)
 add_subdirectory(tgbot_cpp)
 

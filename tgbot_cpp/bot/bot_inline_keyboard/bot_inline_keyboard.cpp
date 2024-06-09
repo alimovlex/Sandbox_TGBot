@@ -13,8 +13,8 @@ bot_inline_keyboard::bot_inline_keyboard(const std::string& bot_token_str,
     get_weather_with_buttons_ = false;
     get_course_with_buttons_ = false;
 
-    button_weather->text = "Красноярск";
-    button_weather->callbackData = "krasnoyarsk_weather";
+    button_weather->text = "London";
+    button_weather->callbackData = "london_weather";
     button_course->text = "USD";
     button_course->callbackData = "usd_valute";
 
@@ -43,7 +43,7 @@ void bot_inline_keyboard::start() {
 
 void bot_inline_keyboard::weather_command() {
     bot_.getEvents().onCommand("weather", [&](TgBot::Message::Ptr message) {
-        bot_.getApi().sendMessage(message->chat->id, "Введите название города",
+        bot_.getApi().sendMessage(message->chat->id, "Please enter a city name",
                                   false, 0, keyboard_weather, "Markdown");
         get_weather_city_ = true;
         long_poll_.start();
@@ -56,14 +56,13 @@ void bot_inline_keyboard::weather_command() {
             if (weather_.check_city()) {
                 bot_.getApi().sendMessage(
                     message->chat->id,
-                    "Погода в городе: " + weather_.get_city() + '\n' +
-                        weather_.get_weather() + "\nтемпература " +
-                        std::to_string(weather_.get_temp()) + "°C\nветер " +
+                    "Weather in " + weather_.get_city() + '\n' +
+                        weather_.get_weather() + "\nTemperature " +
+                        std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
                         std::to_string(weather_.get_wind()) + " m/h");
                 get_weather_city_ = false;
             } else {
-                bot_.getApi().sendMessage(message->chat->id,
-                                          "Введен неверный город");
+                bot_.getApi().sendMessage(message->chat->id, "Invalid city name entered");
                 get_weather_city_ = false;
             }
         }
@@ -71,9 +70,9 @@ void bot_inline_keyboard::weather_command() {
 }
 
 void bot_inline_keyboard::course_command() {
-    bot_.getEvents().onCommand("course", [&](TgBot::Message::Ptr message) {
+    bot_.getEvents().onCommand("currency", [&](TgBot::Message::Ptr message) {
         bot_.getApi().sendMessage(message->chat->id,
-                                  "Введите валюту.\nНапример: usd", false, 0,
+                                  "Please enter currency code.\nFor example: usd", false, 0,
                                   keyboard_course, "Markdown");
         get_course_valute_ = true;
         long_poll_.start();
@@ -90,8 +89,7 @@ void bot_inline_keyboard::course_command() {
                         std::to_string(course_.get_course()) + " ₽");
                 get_course_valute_ = false;
             } else {
-                bot_.getApi().sendMessage(message->chat->id,
-                                          "Введена неверная валюта");
+                bot_.getApi().sendMessage(message->chat->id, "Invalid currency code entered");
                 get_course_valute_ = false;
             }
         }
@@ -100,15 +98,15 @@ void bot_inline_keyboard::course_command() {
 
 void bot_inline_keyboard::check_input_keyboard() {
     bot_.getEvents().onCallbackQuery([&](TgBot::CallbackQuery::Ptr query) {
-        if (StringTools::startsWith(query->data, "krasnoyarsk_weather")) {
+        if (StringTools::startsWith(query->data, "london_weather")) {
             get_weather_with_buttons_ = true;
-            weather_.set_city("Красноярск");
+            weather_.set_city("London");
             weather_.refresh();
             bot_.getApi().sendMessage(
                 query->message->chat->id,
-                "Погода в городе: " + weather_.get_city() + '\n' +
-                    weather_.get_weather() + "\nтемпература " +
-                    std::to_string(weather_.get_temp()) + "°C\nветер " +
+                "Weather in " + weather_.get_city() + '\n' +
+                    weather_.get_weather() + "\nTemperature " +
+                    std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
                     std::to_string(weather_.get_wind()) + " m/h",
                 false, 0, keyboard_weather, "Markdown");
         } else if (StringTools::startsWith(query->data, "usd_valute")) {

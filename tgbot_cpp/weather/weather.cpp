@@ -17,7 +17,7 @@ void weather::set_city(const std::string& city) {
     url_ =
         "http://api.openweathermap.org/data/2.5/"
         "weather?q=" +
-        city_ + "&appid=" + api_ + "&lang=ru";
+        city_ + "&appid=" + api_ + "&lang=en";
 }
 
 bool weather::check_city() const {

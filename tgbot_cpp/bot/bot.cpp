@@ -11,10 +11,11 @@ bot::bot(const std::string& bot_token_str, const std::string& weather_api_str)
     get_weather_city_ = false;
     get_course_valute_ = false;
 
-    bot_commands_ = {"start", "help", "weather", "course"};
-    bot_commands_description_ = {"Начать общение", "Посмотреть что умеет бот",
-                                 "Посмотреть прогноз погоды",
-                                 "Посмотреть курс валюты"};
+    bot_commands_ = {"start", "help", "weather", "currency"};
+    bot_commands_description_ = {"Initialize bot",
+                                 "Look what this bot can do",
+                                 "Weather forecast by OpenWeatherMap",
+                                 "Currency exchange rates"};
 
     std::vector<TgBot::BotCommand::Ptr> commands;
     std::vector<TgBot::BotCommand::Ptr> vectCmd;
@@ -52,9 +53,7 @@ void bot::start() {
 
 void bot::start_command() {
     bot_.getEvents().onCommand("start", [&](TgBot::Message::Ptr message) {
-        bot_.getApi().sendMessage(message->chat->id,
-                                  "Привет! Вызови /help и "
-                                  "посмотри что я могу.");
+        bot_.getApi().sendMessage(message->chat->id,"Hi! Call /help for more info about commands.");
     });
 }
 
@@ -62,15 +61,14 @@ void bot::help_command() {
     bot_.getEvents().onCommand("help", [&](TgBot::Message::Ptr message) {
         bot_.getApi().sendMessage(
             message->chat->id,
-            "Могу показать погоду по твоему городу. Вызови /weather"
-            "\nМогу показать курс валюты которую хочешь "
-            "Вызови /course");
+            "I can show weather forecast for your city. Just write /weather"
+            "\nI can show the currency exchange rate. Just type /currency");
     });
 }
 
 void bot::weather_command() {
     bot_.getEvents().onCommand("weather", [&](TgBot::Message::Ptr message) {
-        bot_.getApi().sendMessage(message->chat->id, "Введите название города");
+        bot_.getApi().sendMessage(message->chat->id, "Please enter a city name");
 
         get_weather_city_ = true;
         long_poll_.start();
@@ -79,23 +77,21 @@ void bot::weather_command() {
         if (weather_.check_city()) {
             bot_.getApi().sendMessage(
                 message->chat->id,
-                "Погода в городе: " + weather_.get_city() + '\n' +
-                    weather_.get_weather() + "\nтемпература " +
-                    std::to_string(weather_.get_temp()) + "°C\nветер " +
+                "Weather in the following town: " + weather_.get_city() + '\n' +
+                    weather_.get_weather() + "\nTemperature " +
+                    std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
                     std::to_string(weather_.get_wind()) + " m/h");
             get_weather_city_ = false;
         } else {
-            bot_.getApi().sendMessage(message->chat->id,
-                                      "Введен неверный город");
+            bot_.getApi().sendMessage(message->chat->id,"Invalid city name entered");
             get_weather_city_ = false;
         }
     });
 }
 
 void bot::course_command() {
-    bot_.getEvents().onCommand("course", [&](TgBot::Message::Ptr message) {
-        bot_.getApi().sendMessage(message->chat->id,
-                                  "Введите валюту.\nНапример: usd");
+    bot_.getEvents().onCommand("currency", [&](TgBot::Message::Ptr message) {
+        bot_.getApi().sendMessage(message->chat->id,"Please enter currency code.\nFor example: usd");
 
         get_course_valute_ = true;
         long_poll_.start();
@@ -108,8 +104,7 @@ void bot::course_command() {
                                           " ₽");
             get_course_valute_ = false;
         } else {
-            bot_.getApi().sendMessage(message->chat->id,
-                                      "Введена неверная валюта");
+            bot_.getApi().sendMessage(message->chat->id, "Invalid currency code entered");
             get_course_valute_ = false;
         }
     });
@@ -133,8 +128,6 @@ void bot::check_input() {
             }
         }
 
-        bot_.getApi().sendMessage(message->chat->id,
-                                  "Не знаю такой команды. Вызови "
-                                  "/help и посмотри что я могу.");
+        bot_.getApi().sendMessage(message->chat->id,"Invalid command provided. Please enter /help for more info.");
     });
 }
