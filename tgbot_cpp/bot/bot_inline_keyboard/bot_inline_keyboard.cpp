@@ -82,11 +82,11 @@ void bot_inline_keyboard::course_command() {
         } else {
             course_.refresh();
 
-            if (course_.check_valute()) {
+            if (course_.check_currency()) {
                 bot_.getApi().sendMessage(
                     message->chat->id,
-                    course_.get_valute() + ": " +
-                        std::to_string(course_.get_course()) + " ₽");
+                    course_.get_currency() + ": " +
+                    std::to_string(course_.get_exchange_rate()) + " ₽");
                 get_course_valute_ = false;
             } else {
                 bot_.getApi().sendMessage(message->chat->id, "Invalid currency code entered");
@@ -111,12 +111,12 @@ void bot_inline_keyboard::check_input_keyboard() {
                 false, 0, keyboard_weather, "Markdown");
         } else if (StringTools::startsWith(query->data, "usd_valute")) {
             get_course_with_buttons_ = true;
-            course_.set_valute("USD");
+            course_.set_currency("USD");
             course_.refresh();
             bot_.getApi().sendMessage(
-                query->message->chat->id,
-                "USD : " + std::to_string(course_.get_course()) + " ₽", false,
-                0, keyboard_course, "Markdown");
+                    query->message->chat->id,
+                    "USD : " + std::to_string(course_.get_exchange_rate()) + " ₽", false,
+                    0, keyboard_course, "Markdown");
         }
     });
 }

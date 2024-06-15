@@ -11,7 +11,7 @@ set(
     network_test.cpp
     ../tgbot_cpp/network/network.cpp 
     ../tgbot_cpp/weather/weather.cpp
-    ../tgbot_cpp/course/course.cpp
+        ../tgbot_cpp/exchange_rate/ExchangeRate.cpp
 )
 
 set(

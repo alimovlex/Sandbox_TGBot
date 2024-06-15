@@ -14,7 +14,7 @@
 #include "bot/bot_inline_keyboard/bot_inline_keyboard.hpp"
 #endif
 
-#include "course/course.hpp"
+#include "exchange_rate/ExchangeRate.hpp"
 #include "tgbot/tgbot.h"
 #include "weather/weather.hpp"
 

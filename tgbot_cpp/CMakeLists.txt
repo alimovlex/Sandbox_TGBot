@@ -8,7 +8,7 @@ set(
     main.cpp 
     network/network.cpp 
     weather/weather.cpp
-    course/course.cpp
+        exchange_rate/ExchangeRate.cpp
     bot/bot.cpp
 )
 

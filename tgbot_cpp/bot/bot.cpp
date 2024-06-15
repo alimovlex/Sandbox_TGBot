@@ -97,11 +97,11 @@ void bot::course_command() {
         long_poll_.start();
         course_.refresh();
 
-        if (course_.check_valute()) {
+        if (course_.check_currency()) {
             bot_.getApi().sendMessage(message->chat->id,
-                                      course_.get_valute() + ": " +
-                                          std::to_string(course_.get_course()) +
-                                          " ₽");
+                                      course_.get_currency() + ": " +
+                                      std::to_string(course_.get_exchange_rate()) +
+                                      " ₽");
             get_course_valute_ = false;
         } else {
             bot_.getApi().sendMessage(message->chat->id, "Invalid currency code entered");
@@ -118,7 +118,7 @@ void bot::check_input() {
         }
 
         if (get_course_valute_) {
-            course_.set_valute(boost::locale::to_upper(message->text));
+            course_.set_currency(boost::locale::to_upper(message->text));
             return;
         }
 

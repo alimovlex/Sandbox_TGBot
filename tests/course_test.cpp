@@ -1,6 +1,6 @@
 #include <boost/test/unit_test.hpp>
 
-#include "course/course.hpp"
+#include "course/ExchangeRate.hpp"
 
 BOOST_AUTO_TEST_SUITE(course_test)
 

@@ -1,7 +1,7 @@
 #ifndef BOT_HPP
 #define BOT_HPP
 
-#include "course/course.hpp"
+#include "exchange_rate/ExchangeRate.hpp"
 #include "tgbot/Bot.h"
 #include "tgbot/net/TgLongPoll.h"
 #include "tgbot/types/InlineKeyboardMarkup.h"
@@ -29,7 +29,7 @@ class bot {
     std::vector<std::string> bot_commands_;
     std::vector<std::string> bot_commands_description_;
     weather weather_;
-    course course_;
+    ExchangeRate course_;
 };
 
 #endif

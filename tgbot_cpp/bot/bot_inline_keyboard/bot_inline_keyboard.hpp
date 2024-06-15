@@ -2,7 +2,7 @@
 #define BOT_INLINE_KEYBOARD_HPP
 
 #include "bot/bot.hpp"
-#include "course/course.hpp"
+#include "exchange_rate/ExchangeRate.hpp"
 #include "tgbot/Bot.h"
 #include "tgbot/net/TgLongPoll.h"
 #include "tgbot/types/InlineKeyboardButton.h"
