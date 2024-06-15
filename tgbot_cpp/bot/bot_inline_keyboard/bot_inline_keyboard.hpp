@@ -7,7 +7,7 @@
 #include "tgbot/net/TgLongPoll.h"
 #include "tgbot/types/InlineKeyboardButton.h"
 #include "tgbot/types/InlineKeyboardMarkup.h"
-#include "weather/weather.hpp"
+#include "weather_forecast/WeatherForecast.hpp"
 
 #include <string>
 #include <vector>
