@@ -16,7 +16,7 @@
 
 #include "exchange_rate/ExchangeRate.hpp"
 #include "tgbot/tgbot.h"
-#include "weather/weather.hpp"
+#include "weather_forecast/WeatherForecast.hpp"
 
 using namespace std;
 using namespace TgBot;

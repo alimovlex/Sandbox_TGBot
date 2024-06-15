@@ -78,8 +78,8 @@ void bot::weather_command() {
             bot_.getApi().sendMessage(
                 message->chat->id,
                 "Weather in the following town: " + weather_.get_city() + '\n' +
-                    weather_.get_weather() + "\nTemperature " +
-                    std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
+                        weather_.get_forecast() + "\nTemperature " +
+                std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
                     std::to_string(weather_.get_wind()) + " m/h");
             get_weather_city_ = false;
         } else {

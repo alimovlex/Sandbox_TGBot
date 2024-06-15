@@ -57,8 +57,8 @@ void bot_inline_keyboard::weather_command() {
                 bot_.getApi().sendMessage(
                     message->chat->id,
                     "Weather in " + weather_.get_city() + '\n' +
-                        weather_.get_weather() + "\nTemperature " +
-                        std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
+                            weather_.get_forecast() + "\nTemperature " +
+                    std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
                         std::to_string(weather_.get_wind()) + " m/h");
                 get_weather_city_ = false;
             } else {
@@ -105,8 +105,8 @@ void bot_inline_keyboard::check_input_keyboard() {
             bot_.getApi().sendMessage(
                 query->message->chat->id,
                 "Weather in " + weather_.get_city() + '\n' +
-                    weather_.get_weather() + "\nTemperature " +
-                    std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
+                        weather_.get_forecast() + "\nTemperature " +
+                std::to_string(weather_.get_temp()) + "°C\nWind speed: " +
                     std::to_string(weather_.get_wind()) + " m/h",
                 false, 0, keyboard_weather, "Markdown");
         } else if (StringTools::startsWith(query->data, "usd_valute")) {

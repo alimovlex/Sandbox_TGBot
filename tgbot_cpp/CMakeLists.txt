@@ -7,7 +7,7 @@ set(
     SRC_LIST
     main.cpp 
     network/network.cpp 
-    weather/weather.cpp
+    weather_forecast/WeatherForecast.cpp
         exchange_rate/ExchangeRate.cpp
     bot/bot.cpp
 )

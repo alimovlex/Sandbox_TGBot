@@ -5,7 +5,7 @@
 #include "tgbot/Bot.h"
 #include "tgbot/net/TgLongPoll.h"
 #include "tgbot/types/InlineKeyboardMarkup.h"
-#include "weather/weather.hpp"
+#include "weather_forecast/WeatherForecast.hpp"
 
 #include <string>
 
@@ -28,7 +28,7 @@ class bot {
     bool get_course_valute_;
     std::vector<std::string> bot_commands_;
     std::vector<std::string> bot_commands_description_;
-    weather weather_;
+    WeatherForecast weather_;
     ExchangeRate course_;
 };
 
